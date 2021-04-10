@@ -1,0 +1,4 @@
+pyqtcss.egg-info/PKG-INFO
+pyqtcss.egg-info/SOURCES.txt
+pyqtcss.egg-info/dependency_links.txt
+pyqtcss.egg-info/top_level.txt
