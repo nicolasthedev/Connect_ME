@@ -3,14 +3,19 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 import qdarkstyle
-
+import pyperclip
 import uuid
 
 import sys
 import os
 
+try:
+    # Python2
+    import Tkinter as tk
+except ImportError:
+    # Python3
+    import tkinter as tk
 
 class MyWindow(QMainWindow):
     def __init__(self):
@@ -77,6 +82,11 @@ class MyWindow(QMainWindow):
         self.sendFilesButton.move(self.windowWidth // 4, self.windowHeight // 4)
         self.sendFilesButton.clicked.connect(self.sendFiles)
 
+        # Share Clipboard Contents
+        self.shareClipboardButton = QPushButton(self)
+        self.shareClipboardButton.setText("Share Copied Text")
+        self.shareClipboardButton.clicked.connect(self.shareClipboard)
+
         # Dark Theme/Light Theme Button
         self.darkLightButton = QPushButton(self)
         self.darkLightButton.setText("Light") # Light is set as default stylesheet mode
@@ -91,6 +101,7 @@ class MyWindow(QMainWindow):
         layout.addWidget(self.hostFieldTextBox)
         layout.addWidget(self.sendFilesButton)
         layout.addWidget(self.pickFilesButton)
+        layout.addWidget(self.shareClipboardButton)
         layout.addWidget(self.darkLightButton)
 
 
@@ -127,6 +138,10 @@ class MyWindow(QMainWindow):
         # Saves receiver's unique ID to a variable
         self.hostFieldValue = self.hostFieldTextBox.text()
         print(self.hostFieldValue)
+
+    def shareClipboard(self):
+        clipboardContents = pyperclip.paste()
+        pyperclip.copy(clipboardContents)
 
 
     def darkLight(self):
